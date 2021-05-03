@@ -1,5 +1,5 @@
 const express=require('express');
-const app=new express();
+
 const port = process.env.PORT || 2000;
 
 const loginRouter=require('./routes/login');

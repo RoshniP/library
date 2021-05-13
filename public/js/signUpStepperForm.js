@@ -80,8 +80,11 @@ signUpBtn.addEventListener('click', function(e) {
     document.querySelector(`.step--6`).classList.add('step-active');
     formBtn5.parentElement.style.display = 'none';
     document.querySelector('.form--message').innerHTML = `
-    <h1 class="form--message-text">Your Account is Created Successfully  </h1>
+    <h1 class="form--message-text">Please Wait.....</h1>
     `;
+    setTimeout(()=>{
+      get('#signUpForm').submit();
+    },2000);
   }
   
   

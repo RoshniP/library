@@ -1,6 +1,6 @@
 const express=require('express');
 
-const port = process.env.PORT || 2000;
+const port = process.env.PORT || 3000;
 
 const loginRouter=require('./routes/login');
 const signupRouter=require('./routes/signup');

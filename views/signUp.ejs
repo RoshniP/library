@@ -19,7 +19,7 @@
     <div class="container marginTop marginBottomReduce minHeight mb-5" >
         <div class="row justify-content-center">
             <div class="col-md-12 col-8 " style="z-index: 100;">
-                
+              <form action="/" method="GET" id="signUpForm" name="signUpForm">  
                 <main>
                     <div class="stepper">
                       <div class="step--1 step-active">Step 1</div>
@@ -29,7 +29,7 @@
                       <div class="step--5">Step 5</div>
                       <div class="step--6">Finish</div> 
                     </div>
-                    <form class="form form-active">
+                    <div class="form form-active">
                       <div class="form--header-container">
                         <h1 class="form--header-title">
                           SignUp Form
@@ -42,18 +42,18 @@
                       <!-- <input type="text" placeholder="Username" /> -->
                       <label class="form-group has-float-label">
                         <div class="errorMsg hidden" id="nameError"></div>
-                        <input class="form-control" type="text" id="name" placeholder="Name" required/>
+                        <input class="form-control" type="text" id="name" name="name" placeholder="Name" required/>
                         <span class="pushRight">Name</span>
                       </label>
                       <label class="form-group has-float-label">
                         <div class="errorMsg hidden" id="unameError"></div>
-                        <input class="form-control" type="text" id="uname" placeholder="Username" required/>
+                        <input class="form-control" type="text" id="uname" name="uname" placeholder="Username" required/>
                         <span class="pushRight">Username</span>
                       </label>
                       
                       <button class="form__btn" id="btn-1">Next</button>
-                    </form>
-                    <form class="form">
+                    </div>
+                    <div class="form">
                       <div class="form--header-container">
                         <h1 class="form--header-title">
                             SignUp Form
@@ -66,19 +66,19 @@
               
                       <label class="form-group has-float-label">
                         <div class="errorMsg hidden" id="emailError"></div>
-                        <input class="form-control" type="email" id="email" placeholder="Email" required/>
+                        <input class="form-control" type="email" id="email" name="email" placeholder="Email" required/>
                         <span class="pushRight">Email</span>
                       </label>
                       <label class="form-group has-float-label">
                         <div class="errorMsg hidden" id="mobileError"></div>
-                        <input class="form-control" type="text" id="mobile" placeholder="Mobile" required/>
+                        <input class="form-control" type="text" id="mobile" name="mobile" placeholder="Mobile" required/>
                         <span class="pushRight">Mobile</span>
                       </label>
                       
                       <button class="form__btn" id="btn-2-prev">Previous</button>
                       <button class="form__btn" id="btn-2-next">Next</button>
-                    </form>
-                    <form class="form">
+                    </div>
+                    <div class="form">
                       <div class="form--header-container">
                         <h1 class="form--header-title">
                             SignUp Form
@@ -91,21 +91,21 @@
               
                       <label class="form-group has-float-label">
                         <div class="errorMsg hidden" id="passwordError"></div>
-                        <input class="form-control" type="password" id="password" placeholder="Password" required/>
+                        <input class="form-control" type="password" id="password" name="password" placeholder="Password" required/>
                         <span class="pushRight">Password</span>
                         <i toggle="#password" class="fa fa-fw fa-eye-slash field-icon toggle-password"></i>
                       </label>
                       <div id="passLenthIndicator" class="text-center hidden"> short</div>
                       <label class="form-group has-float-label">
                         <div class="errorMsg hidden" id="rpasswordError"></div>
-                        <input class="form-control" type="password" id="rpassword" placeholder="Repeat Password" required/>
+                        <input class="form-control" type="password" id="rpassword"  name="rpassword" placeholder="Repeat Password" required/>
                         <span class="pushRight">Repeat Password</span>
                       </label>
                       
                       <button class="form__btn" id="btn-3-prev">Previous</button>
                       <button class="form__btn" id="btn-3-next">Next</button>
-                    </form>
-                    <form class="form">
+                    </div>
+                    <div class="form">
                       <div class="form--header-container">
                         <h1 class="form--header-title">
                             SignUp Form
@@ -118,7 +118,7 @@
               
                       <label class="form-group has-float-label">
                         <div class="errorMsg hidden" id="dobError"></div>
-                        <input class="form-control" type="date" id="dob" placeholder="DOB" required/>
+                        <input class="form-control" type="date" id="dob" name="dob" placeholder="DOB" required/>
                         <span class="pushRight">DOB</span>
                       </label>
                       
@@ -141,8 +141,8 @@
                       
                       <button class="form__btn" id="btn-4-prev">Previous</button>
                       <button class="form__btn" id="btn-4-next">Next</button>
-                    </form>
-                    <form class="form">
+                      </div>
+                    <div class="form">
                       <div class="form--header-container">
                         <h1 class="form--header-title">
                             SignUp Form
@@ -155,18 +155,30 @@
               
                       <label class="form-group has-float-label">
                         <div class="errorMsg hidden" id="addressError"></div>
-                        <input class="form-control" type="text" id="address" placeholder="Address" required/>
+                        <input class="form-control" type="text" id="address" name="address" placeholder="Address" required/>
                         <span class="pushRight">Address</span>
                       </label>
+                      <div class="violet" >Class of User:</div>
+                        <div id="genderGroup">
+                          <div>
+                            <span>Student</span><input class="form-control" type="radio" id="user1" name="classOfUser" value="student" required checked/>
+
+                          </div>
+                          <div>
+                            <span>Admin:</span><input class="form-control" type="radio" id="user2" name="classOfUser" value="admin" required/>
+                          </div>
+                          
+                          
+                        </div>
                       
                       
                       <button class="form__btn" id="btn-5-prev">Previous</button>
                       <button class="form__btn" id="signUpBtn">Sign Up</button>
-                    </form>
+                    </div>
                     
                     <div class="form--message"></div>
                   </main>
-            
+            </form>
             </div>
 
         </div>
@@ -185,6 +197,10 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
+
+     <!-- particle.js files -->
+    <!-- <script src="particles.js"></script>
+    <script src="app.js"></script> -->
 
     <script src="pagedesignAnimations.js"></script>
     <script src="SignUpFormValidation.js"></script>

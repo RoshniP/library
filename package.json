@@ -7,11 +7,7 @@
     "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/harikrishnan-a-k/LibraryAppWithNode.git"
-  },
-  "author": "harikrishnan a k",
+  "author": "Roshni P",
   "license": "MIT",
   "dependencies": {
     "axios": "^0.21.1",

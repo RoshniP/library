@@ -36,7 +36,7 @@ loginBtn.addEventListener('click', function(e) {
     document.querySelector(`.step--4`).classList.add('step-active');
     loginBtn.parentElement.style.display = 'none';
     document.querySelector('.form--message').innerHTML = `
-    <h1 class="form--message-text">Please Wait .....</h1>
+    <h1 class="form--message-text">You  Logged in successfully  </h1>
     `;
     setTimeout(()=>{
       get('#logInForm').submit();

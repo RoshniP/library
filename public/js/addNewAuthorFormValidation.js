@@ -1,26 +1,22 @@
 const errorFlags={
-    bookNameErrFlag:true,
-    authorErrFlag:true,
-    genreErrFlag:true,
-    
+    authorNameErrFlag:true,
+    authorWorksErrFlag:true,
     aboutErrFlag:true,
 }
 function get(str){
     return document.querySelector(str);
 }
-
-const bookName=get('#AuthorName');
-const bookNameError=get('#AuthorNameError');
-const authorpic=get('#authorpic');
-const authorpicError=get('#authorpic');
-const works=get('#works');
-const worksError=get('#worksError');
 const about=get('#about');
 const aboutError=get('#aboutError');
 
-const addauthbtn=get('#addauthbtn');
+const authorName=get('#authorName');
+const authorNameError=get('#authorNameError');
+const authorWorks=get('#authorWorks');
+const authorWorksError=get('#authorWorksError');
+const signUpBtn1=get('#signUpBtn');
 
-
+const authorpic=get('#authorpic');
+const authorpicError=get('#authorpicError');
 
 
 
@@ -73,19 +69,19 @@ function errMsgRemove(el){
         elError.classList.add('hidden');
     })
 }
-if(bookName){
-    errMsgRemove(bookName);
+if(authorName){
+    errMsgRemove(authorName);
+}
+if(authorWorks){
+    errMsgRemove(authorWorks);
+}
+
+if(about){
+    errMsgRemove(about);
 }
 if(authorpic){
     errMsgRemove(authorpic);
 }
-if(works){
-    errMsgRemove(works);
-}
-if(about){
-    errMsgRemove(about);
-}
-
 
 
 
@@ -109,28 +105,7 @@ function validate(e){
 
 
 
-const loginBtn1 =get('#loginBtn');
-// preventing login from submisssion on password error
-if(loginBtn1){
-    loginBtn1.addEventListener('click',function(e){
-        if(errorFlags[password]===true){
-            e.preventDefault();
-            return;
-        }
-    });
-}
 
 
 
 // this is jquery for show/hide password.
-
-$(".toggle-password").click(function() {
-
-    $(this).toggleClass("fa-eye fa-eye-slash");
-    var input = $($(this).attr("toggle"));
-    if (input.attr("type") == "password") {
-      input.attr("type", "text");
-    } else {
-      input.attr("type", "password");
-    }
-  });

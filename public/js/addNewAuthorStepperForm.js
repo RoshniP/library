@@ -1,17 +1,18 @@
 const formBtn1 = document.querySelector('#btn-1');
 const formBtnPrev2 = document.querySelector('#btn-2-prev');
 const formBtnNext2 = document.querySelector('#btn-2-next');
-const formBtnPrev3 = document.querySelector('#btn-3-prev');
-const formBtnNext3 = document.querySelector('#btn-3-next');
+
 const formBtnPrev4 = document.querySelector('#btn-4-prev');
-const signUpBtn=document.querySelector('#addauthbtn');
+const formBtnNext4 = document.querySelector('#btn-4-next');
+const formBtn5 = document.querySelector('#btn-5-prev');
+const signUpBtn=document.querySelector('#signUpBtn');
 
 // Button listener of form 1
 formBtn1.addEventListener('click', function(e) {
   e.preventDefault();
-  ifEmpty(AuthorName);
+  ifEmpty(authorName);
   console.log('button1 clicked');
-  if(errorFlags.AuthorNameErrFlag===false ){
+  if(errorFlags.authorNameErrFlag===false ){
     gotoNextForm(formBtn1,formBtnNext2, 1, 2);
     
   }
@@ -21,9 +22,9 @@ formBtn1.addEventListener('click', function(e) {
 // Next button listener of form 2
 formBtnNext2.addEventListener('click', function(e) {
   e.preventDefault();
-  ifEmpty(authorpic);
-  if(errorFlags.authorpicErrFlag===false){
-    gotoNextForm(formBtnNext2, formBtnNext3, 2, 3);
+  ifEmpty(authorWorks);
+  if(errorFlags.authorWorksErrFlag===false){
+    gotoNextForm(formBtnNext2, formBtnNext4, 2, 3);
    
   }
   
@@ -34,39 +35,42 @@ formBtnPrev2.addEventListener('click', function(e) {
   gotoNextForm(formBtnNext2, formBtn1, 2, 1);
   e.preventDefault();
 });
-// Previous button listener of form 3
-formBtnPrev3.addEventListener('click', function(e) {
-  gotoNextForm(formBtnNext3, formBtnNext2, 3, 2);
-  e.preventDefault();
-});
-// Next button listener of form 3
-formBtnNext3.addEventListener('click', function(e) {
-  e.preventDefault();
-  ifEmpty(works);
-  if(errorFlags.worksErrFlag===false ){
-    gotoNextForm(formBtnNext3, signUpBtn, 3, 4);
-    
-  }
-  
-});
+
+
 // Previous button listener of form 4
 formBtnPrev4.addEventListener('click', function(e) {
-  gotoNextForm(formBtnNext4, formBtnNext3, 4, 3);
+  gotoNextForm(formBtnNext4, formBtnNext2, 3, 2);
   e.preventDefault();
 });
+// Next button listener of form 4
+formBtnNext4.addEventListener('click', function(e) {
+  e.preventDefault();
+  
+  if(authorpic.files[0]){
+    gotoNextForm(formBtnNext4, formBtn5, 3, 4);
+  }
+ 
+  
+});
+// Previous button listener of form 5
+formBtn5.addEventListener('click', function(e) {
+  gotoNextForm(formBtn5, formBtnNext4, 4, 3);
+  e.preventDefault();
+});
+
 //signUp Button listener of form 5
 signUpBtn.addEventListener('click', function(e) {
   e.preventDefault();
   ifEmpty(about);
   if(errorFlags.aboutErrFlag===false){
     document.querySelector(`.step--4`).classList.remove('step-active');
-    document.querySelector(`.step--5`).classList.add('step-active');
-    signUpBtn.parentElement.style.display = 'none';
+    document.querySelector(`.step--6`).classList.add('step-active');
+    formBtn5.parentElement.style.display = 'none';
     document.querySelector('.form--message').innerHTML = `
-    <h1 class="form--message-text">New Author is Added Successfully  </h1>
+    <h1 class="form--message-text"> ${get('#serverMessage').innerHTML} </h1>
     `;
     setTimeout(()=>{
-      get('#addNewAuthorForm').submit();
+      get('#addNewBookForm').submit();
     },2000);
   }
   

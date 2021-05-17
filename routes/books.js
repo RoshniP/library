@@ -1,7 +1,7 @@
 const express=require('express');
 const bodyParser=require('body-parser');
 const multer=require('multer');
-const axios=require('axios');
+
 
 const fs=require('fs');
 
@@ -19,67 +19,143 @@ const imageStorage=multer.diskStorage({
 });
 
 const booksRouter=express.Router();
+const bookModel=require('../models/bookModel');
 
 booksRouter.use(bodyParser.urlencoded({extended:true}));
 booksRouter.use(multer({storage:imageStorage}).single('authorpic'));
 
 booksRouter.get('/', async(req,res)=>{
-    let booksArray=JSON.parse(fs.readFileSync('./util/booksArray.json'));
-    res.render('books',{booksArray});
+    bookModel.find()
+    .then((books)=>{
+        res.render('books',{books,
+            isLoggedIn:req.session.isLoggedIn||false,
+            isAdmin:req.session.isAdmin||false,
+            userId:req.session.userId||false
+        });
+    })
+    .catch((err)=>{
+        console.log('failed to fetch books from db',err);
+    })
+    
 });
 booksRouter.route('/addNewBook')
 .get((req,res)=>{
-    res.render('addNewBook');
+    res.render('addOrUpdateBook',{
+        pageTitle: 'Add New Book',
+        path: '/books/addNewBook',
+        editing: false,
+        isLoggedIn:req.session.isLoggedIn||false,
+        isAdmin:req.session.isAdmin||false,
+        userId:req.session.userId||false
+      });
 })
 .post((req,res)=>{
     console.log(req.file);
-    const bookObject={};
-    bookObject.name=req.body.bookName;
-    bookObject.author=req.body.author;
-    bookObject.genre=req.body.genre;
-    bookObject.pic=req.file.filename;
-    bookObject.about=req.body.about;
+    
+    const name=req.body.bookName;
+    const author=req.body.author;
+    const genre=req.body.genre;
+    const pic=req.file.filename;
+    const about=req.body.about;
+    const book=new bookModel({
+        title:name,
+        author:author,
+        genre:genre,
+        bookPic:pic,
+        about:about
 
-    let rawdata = fs.readFileSync('./util/booksArray.json');
-    let books = JSON.parse(rawdata);
-    books.push(bookObject);
-    let booksJSON=JSON.stringify(books);
-    fs.writeFileSync('./util/booksArray.json',booksJSON);
+    });
 
     
+    book.save()
+    .then(()=>{
+        console.log('book added to db');
+        res.redirect('/books');
 
-    res.redirect('/books');
-
-})
-
-booksRouter.route('/addNewAuthor')
+    })
+    .catch((err)=>{
+        console.log('failed to save book to db',err);
+    })
+      
+});
+booksRouter.route('/updateBook/:id')
 .get((req,res)=>{
-    res.render('addnewauthor');
+    const bookId=req.params.id;
+    bookModel.findById(bookId)
+    .then((book)=>{
+        res.render('addOrUpdateBook',{
+            pageTitle: 'Update Book',
+            path: `/books/updateBook/${bookId}`,
+            editing: true,
+            book:book,
+            isLoggedIn:req.session.isLoggedIn||false,
+            isAdmin:req.session.isAdmin||false,
+            userId:req.session.userId||false
+          });
+    })
+    .catch((err)=>{
+        console.log('failed to fetch  book for update',err);
+    })
+    
 })
 .post((req,res)=>{
     console.log(req.file);
-    const AuthObject={};
-    AuthObject.name=req.body.AuthorName;
-    AuthObject.pic=req.file.filename;
-    AuthObject.works=req.body.works;
-    AuthObject.about=req.body.about;
+    const bookId=req.params.id;
+    const name=req.body.bookName;
+    const author=req.body.author;
+    const genre=req.body.genre;
+    const pic=req.file.filename;
+    const about=req.body.about;
+    bookModel.findByIdAndUpdate(bookId,
+        {
+            title:name,
+            author:author,
+            genre:genre,
+            bookPic:pic,
+            about:about
+    
+        })
+    .then(()=>{
+        console.log('book data updated successfully');
+        
+        // const filePath = `../public/images/${pic}`; 
+        // fs.unlinkSync(filePath);
+        res.redirect('/books');
 
-    let rawdata2 = fs.readFileSync('./util/authorsArray.json');
-    let authors = JSON.parse(rawdata2);
-    authors.push(AuthObject);
-    let authorJSON=JSON.stringify(authors);
-    fs.writeFileSync('./util/authorsArray.json',authorJSON);
-
+    })
+    .catch((err)=>{
+        console.log('failed to update book data to db',err);
+    })
     
 
-    res.redirect('/authors');
+    
+});
+booksRouter.post('/deleteBook',(req,res)=>{
+    const bookId=req.body.bookId;
+    bookModel.findByIdAndRemove(bookId)
+    .then(()=>{
+        console.log('book deleted successfully');
+        res.redirect('/books');
 
+    })
+    .catch((err)=>{
+        console.log('book delete failed',err);
+    })
 })
-
-booksRouter.get('/:index',(req,res)=>{
-    let booksArray=JSON.parse(fs.readFileSync('./util/booksArray.json'));
-    let index=req.params.index;
-    res.render('singleBook',{book:booksArray[index]});
+booksRouter.get('/:id',(req,res)=>{
+    
+    let id=req.params.id;
+    bookModel.findById(id)
+    .then((book)=>{
+        res.render('singleBook',{book,
+            isLoggedIn:req.session.isLoggedIn||false,
+            isAdmin:req.session.isAdmin||false,
+            userId:req.session.userId||false});
+    })
+    .catch((err)=>{
+        console.log('failed to fetch single book',err);
+    })
+    
 });
 
 

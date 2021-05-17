@@ -125,7 +125,7 @@ if(loginBtn1){
 
 // this is jquery for show/hide password.
 
-$(".toggle-password").click(function(){
+$(".toggle-password").click(function() {
 
     $(this).toggleClass("fa-eye fa-eye-slash");
     var input = $($(this).attr("toggle"));
@@ -134,6 +134,4 @@ $(".toggle-password").click(function(){
     } else {
       input.attr("type", "password");
     }
-
   });
-  

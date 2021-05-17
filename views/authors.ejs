@@ -30,20 +30,33 @@
 
     <div class="container articles">
        
-        <% authorsArray.forEach((author,index)=> { %>
+        <% authors.forEach((author,index)=> { %>
          
         
             <div class="row mt-3 justify-content-center">
                 <div class="col-sm-2 col-8 pt-3 text-center" >
-                    <img src="/<%= author['pic'] %> " alt="" class="rounded-circle imgsize" >
+                    <img src="/<%= author['authorPic'] %> " alt="" class="rounded-circle imgsize" >
                 </div>
                 <div class="col-sm-10 col-10 pl-sm-3 blogtext" >
                     <h3 class="text-capitalize font-weight-bold"><%= author['name'] %> </h3>
-                    <p class="sourcesite"><%= author['works'] %> </p>
+                    <p class="sourcesite">Major Works--<%= author['authorWorks'] %>
+                      </p>
                      <span><a href="#" class="readMore" id="<%= index  %>"> Read More</a></span>
-                     <p id="about<%= index  %>" style="display: none;">
-                         <%= author['about'] %> 
-                     </p>
+                     <div id="about<%= index  %>" style="display: none;">
+                        <p><%= author['about'] %> </p>  
+                        <% if (isAdmin) { %>
+                            <div class="row justify-content-end">
+                                <a href="/authors/updateAuthor/<%= author['_id'] %> "><button class="btn btn-primary mr-4"> Update Author</button></a> 
+                                <form action="/authors/deleteAuthor" method="POST" onsubmit=" return confirm('Are sure you want to Delete this Author?')">
+                                 <input type="hidden" value="<%= author['_id'] %>" name="authorId">
+                                 <button class="btn btn-danger mr-4" type="submit"> Delete Author</button>
+                                </form>
+                                
+                             </div>
+                        <% } %>
+                         
+                        </div>
+                     
                 </div>
                 
             </div>
@@ -56,7 +69,7 @@
     </div>
 
     
-    <%- include('./partials/footer')  %> 
+    <!-- <%- include('./partials/footer')  %>  -->
 
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

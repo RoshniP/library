@@ -18,7 +18,7 @@
     <div class="container marginTop marginBottomReduce minHeight mb-5" >
         <div class="row justify-content-center">
             <div class="col-md-12 col-8 " style="z-index: 100;">
-             <form action="/" method="GET" id="logInForm" name="logInForm">   
+             <form action="/logIn" method="POST" id="logInForm" name="logInForm">   
                 <main>
                     <div class="stepper">
                       <div class="step--1 step-active">Step 1</div>
@@ -32,12 +32,19 @@
                           Login Form
                         </h1>
               
-                     
+                        <p class="form--header-text">
+                          Enter your Username.
+                          <% if (errorMsg) { %>
+                            <p class="text-danger"> 
+                           <%= errorMsg %> 
+                          </p>
+                          <% } %>
                         </p>
                       </div>
                       <!-- <input type="text" placeholder="Username" /> -->
                       <label class="form-group has-float-label">
-                        <input class="form-control" id="uname" name="uname" type="text" placeholder="Username"/>
+                        <div class="errorMsg hidden" id="unameError"></div>
+                        <input class="form-control" id="uname" name="uname" type="text" placeholder="Username"/ value="<% if (errorMsg) { %><%= unameEntered %><% } %>">
                         <span class="pushRight">Username</span>
                       </label>
                       <!-- <input type="text" placeholder="Email" />

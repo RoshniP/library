@@ -81,7 +81,7 @@ signUpBtn.addEventListener('click', function(e) {
     document.querySelector(`.step--6`).classList.add('step-active');
     formBtn5.parentElement.style.display = 'none';
     document.querySelector('.form--message').innerHTML = `
-    <h1 class="form--message-text">New book is Added Successfully  </h1>
+    <h1 class="form--message-text"> ${get('#serverMessage').innerHTML} </h1>
     `;
     setTimeout(()=>{
       get('#addNewBookForm').submit();
